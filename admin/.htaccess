@@ -1,0 +1,6 @@
+<Files index.php>
+AuthType Basic   
+AuthName "private zone!"
+AuthUserFile C:/OSPanel/domains/project/admin/.htpasswd
+require valid-user 
+</Files>

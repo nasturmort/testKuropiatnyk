@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Книжный каталог</title>
+	<link rel="stylesheet" type="text/css" href="/db/css.css">
+</head>
+<body>
+	<header>
+		<div id="logo" onclick="slowScroll('#top')">
+			<span>Книжный каталог</span>
+		</div>
+		<div id="about">
+			<a href="/db/author.php" title="author" onclick="slowScroll('#author')">Автора</a>
+			<a href="/db/genre.php" title="genre" onclick="slowScroll('#genre')">Жанры</a>
+			<a href="/admin/index.php" title="admin" onclick="slowScroll('#admin')">Admin</a>
+		</div>
+	</header>
+
+	<div id="top">
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		function slowScroll(id){
+			$('html, body').animate({
+				scrollTop: $(id).offset().top
+			},500);
+		}
+		/* code for class .fixed (for scroll a page)*/
+		$(document).on("scroll",function(){
+			if ($(window).scrollTop()===0) {
+				$("header").removeClass("fixed");
+			}
+			else {
+				$("header").attr("class","fixed");
+			}
+		})
+	</script>
+</body>
+</html>
