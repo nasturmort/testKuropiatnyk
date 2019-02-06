@@ -3,92 +3,11 @@
 <head>
     <meta charset="utf-8">
     <title>Добавление книги</title>
-    <?php
-    $host='project';
-    $user='nasturmort';
-    $pass='th340858k';
-    $db_name = 'Book';   // Имя базы данных
-    $link = mysqli_connect($host, $user, $pass, $db_name); // Соединяемся с базой
-
-    // Ругаемся, если соединение установить не удалось
-    if (!$link) {
-        echo 'Не могу соединиться с БД. Код ошибки: ' . mysqli_connect_errno() . ', ошибка: ' . mysqli_connect_error();
-        exit;
-    }
-    ?>
 </head>
 <body>
 <?php
-if(isset($_POST['save'])){
-    $sql = mysqli_query($link, "INSERT INTO `tbBook` (idBook, bookName, description)
-        VALUES ('{$_POST["idBook"]}','{$_POST["bookName"]}','{$_POST["description"]}');
-        ");
-    if ($sql) {
-        echo '<p>Данные  успешно добавлены в таблицу.</p>';
-    } else {
-        echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
-    }
-}
-if(isset($_POST['save'])){
-    $sql = mysqli_query($link, "INSERT INTO `tbAuthor` (idAuthor, AuthorName)
-        VALUES ('{$_POST["idAuthor"]}','{$_POST["authorName"]}');
-        ");
-    if ($sql) {
-        echo '<p>Данные успешно добавлены в таблицу.</p>';
-    } else {
-        echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
-    }
-}
-if(isset($_POST['save'])){
-    $sql = mysqli_query($link, "INSERT INTO `tbAuthorBook` (idBook, idAuthor)
-        VALUES ('{$_POST["idBook"]}','{$_POST["idAuthor"]}');
-        ");
-    if ($sql) {
-        echo '<p>Данные успешно добавлены в таблицу.</p>';
-    } else {
-        echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
-    }
-}
-/*if(isset($_POST['save1'])){
-    $sql = mysqli_query($link, "INSERT INTO `tbAuthor` (idAuthor, AuthorName)
-        VALUES ('{$_POST["idAuthor2"]}','{$_POST["authorName2"]}');
-        ");
-    if ($sql) {
-        echo '<p>Данные успешно добавлены в таблицу.</p>';
-    } else {
-        echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
-    }
-}
-if(isset($_POST['save1'])){
-    $sql = mysqli_query($link, "INSERT INTO `tbAuthorBook` (idBook, idAuthor)
-        VALUES ('{$_POST["idBook"]}','{$_POST["idAuthor2"]}');
-        ");
-    if ($sql) {
-        echo '<p>Данные успешно добавлены в таблицу.</p>';
-    } else {
-        echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
-    }
-}*/
-if(isset($_POST['save'])){
-    $sql = mysqli_query($link, "INSERT INTO `tbGenre` (idGenre, genre)
-        VALUES ('{$_POST["idGenre"]}','{$_POST["genre"]}');
-        ");
-    if ($sql) {
-        echo '<p>Данные успешно добавлены в таблицу.</p>';
-    } else {
-        echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
-    }
-}
-if(isset($_POST['save'])){
-    $sql = mysqli_query($link, "INSERT INTO `tbGenreBook` (idGenre, idBook)
-        VALUES ('{$_POST["idGenre"]}','{$_POST["idBook"]}');
-        ");
-    if ($sql) {
-        echo '<p>Данные успешно добавлены в таблицу.</p>';
-    } else {
-        echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
-    }
-}
+require_once("C:/OSPanel/domains/project/db/function.php");
+index_add();
 ?>
 
 <form method="post">

@@ -7,15 +7,8 @@
 <body>
 
 <?php
-require_once("connection.php");
-
-$query="select * from tbBook as Book
-join tbAuthorBook as AuthorBook on AuthorBook.idBook=Book.idBook
-join tbAuthor as Author on Author.idAuthor=AuthorBook.idAuthor
-join tbGenreBook as GenreBook on GenreBook.idBook=Book.idBook
-join tbGenre as Genre on Genre.idGenre=GenreBook.idGenre";
-/*$query="select * from tbBook";*/
-$result=$conn->query($query);
+require_once("function.php");
+$result=index_all();
 
 if($result->num_rows>0){
     while ($row=$result->fetch_assoc()){   

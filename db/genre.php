@@ -17,18 +17,17 @@
         </div>
     </header>
 <?php
+require_once("function.php");
+$result=genre_result();
+$conn=db_connect();
 
-require_once("connection.php");
-
-$query = "SELECT * FROM tbGenre ORDER BY genre";
-$result = mysqli_query($conn, $query);
 if(!$result){
     echo "Can't retrieve data " . mysqli_error($conn);
-    exit;
+   exit;
 }
 if(mysqli_num_rows($result) == 0){
     echo "Empty genre ! Something wrong! check again";
-    exit;
+   exit;
 }
 
 $title = "Жанры";
@@ -38,10 +37,11 @@ $title = "Жанры";
 <h5>
 <ul>
     <?php
+
     while($row = mysqli_fetch_assoc($result)){
         $count = 0;
-        $query = "SELECT genre FROM tbGenre";
-        $result2 = mysqli_query($conn, $query);
+
+        $result2 = genre_result2();
         if(!$result2){
             echo "Can't retrieve data " . mysqli_error($conn);
             exit;

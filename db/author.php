@@ -17,11 +17,10 @@
         </div>
     </header>
 <?php
+require_once("function.php");
+$result=author_result();
+$conn=db_connect();
 
-require_once("connection.php");
-
-$query = "SELECT * FROM tbAuthor ORDER BY authorName";
-$result = mysqli_query($conn, $query);
 if(!$result){
     echo "Can't retrieve data " . mysqli_error($conn);
     exit;
@@ -40,8 +39,7 @@ $title = "Автора";
         <?php
         while($row = mysqli_fetch_assoc($result)){
             $count = 0;
-            $query = "SELECT authorName FROM tbAuthor";
-            $result2 = mysqli_query($conn, $query);
+            $result2 = author_result2();
             if(!$result2){
                 echo "Can't retrieve data " . mysqli_error($conn);
                 exit;
