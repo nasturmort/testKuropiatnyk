@@ -8,32 +8,9 @@ function db_connect(){
     }
     return $conn;
 }
-function tableGetComponent($book_id)
+function tableGetComponent($book_id,$table,$column)
 {
     $link = db_connect();
-    $book_id = $_GET['pubid'];
-    //$link = mysqli_connect('localhost', 'nasturmort', 'th340858k','Book');
-    if(!$link){
-        echo "ERROR!";
-    }
-    if(!is_numeric($book_id)) exit();
-
-    $sql = "select * from tbBook as Book
-        join tbAuthorBook as AuthorBook on AuthorBook.idBook=Book.idBook
-        join tbAuthor as Author on Author.idAuthor=AuthorBook.idAuthor 
-        join tbGenreBook as GenreBook on GenreBook.idBook=Book.idBook
-        join tbGenre as Genre on Genre.idGenre=GenreBook.idGenre
-    WHERE AuthorBook.idAuthor = $book_id";
-    $result = mysqli_query($link, $sql);
-    $authors = mysqli_fetch_all($result, 1);
-
-    return $authors;
-}
-function tableGetComponentg($book_id)
-{
-    $link = db_connect();
-    $book_id = $_GET['genre_id'];
-
     if(!$link){
         echo "ERROR!";
     }
@@ -43,57 +20,16 @@ function tableGetComponentg($book_id)
         join tbAuthor as Author on Author.idAuthor=AuthorBook.idAuthor 
         join tbGenreBook as GenreBook on GenreBook.idBook=Book.idBook
         join tbGenre as Genre on Genre.idGenre=GenreBook.idGenre
-    WHERE GenreBook.idGenre = $book_id";
+    WHERE $table.$column = $book_id";
     $result = mysqli_query($link, $sql);
-    $genre = mysqli_fetch_all($result, 1);
-
-    return $genre;
+    $array = mysqli_fetch_all($result, 1);
+    return $array;
 }
-function index_add(){
+function add_2param($table,$column1,$column2,$value1,$value2){
     $link = db_connect();
     if(isset($_POST['save'])){
-        $sql = mysqli_query($link, "INSERT INTO `tbBook` (idBook, bookName, description)
-        VALUES ('{$_POST["idBook"]}','{$_POST["bookName"]}','{$_POST["description"]}');
-        ");
-        if ($sql) {
-            echo '<p>Данные  успешно добавлены в таблицу.</p>';
-        } else {
-            echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
-        }
-    }
-    if(isset($_POST['save'])){
-        $sql = mysqli_query($link, "INSERT INTO `tbAuthor` (idAuthor, AuthorName)
-        VALUES ('{$_POST["idAuthor"]}','{$_POST["authorName"]}');
-        ");
-        if ($sql) {
-            echo '<p>Данные успешно добавлены в таблицу.</p>';
-        } else {
-            echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
-        }
-    }
-    if(isset($_POST['save'])){
-        $sql = mysqli_query($link, "INSERT INTO `tbAuthorBook` (idBook, idAuthor)
-        VALUES ('{$_POST["idBook"]}','{$_POST["idAuthor"]}');
-        ");
-        if ($sql) {
-            echo '<p>Данные успешно добавлены в таблицу.</p>';
-        } else {
-            echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
-        }
-    }
-    if(isset($_POST['save'])){
-        $sql = mysqli_query($link, "INSERT INTO `tbGenre` (idGenre, genre)
-        VALUES ('{$_POST["idGenre"]}','{$_POST["genre"]}');
-        ");
-        if ($sql) {
-            echo '<p>Данные успешно добавлены в таблицу.</p>';
-        } else {
-            echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
-        }
-    }
-    if(isset($_POST['save'])){
-        $sql = mysqli_query($link, "INSERT INTO `tbGenreBook` (idGenre, idBook)
-        VALUES ('{$_POST["idGenre"]}','{$_POST["idBook"]}');
+        $sql = mysqli_query($link, "INSERT INTO $table ($column1, $column2)
+        VALUES ('$value1','$value2');
         ");
         if ($sql) {
             echo '<p>Данные успешно добавлены в таблицу.</p>';
@@ -102,39 +38,40 @@ function index_add(){
         }
     }
 }
-function form(){
-
+function add_3param($table,$column1,$column2,$column3,$value1,$value2,$value3){
+    $link = db_connect();
+    if(isset($_POST['save'])){
+        $sql = mysqli_query($link, "INSERT INTO $table ($column1, $column2,$column3)
+        VALUES ('$value1','$value2','$value3');
+        ");
+        if ($sql) {
+            echo '<p>Данные успешно добавлены в таблицу.</p>';
+        } else {
+            echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
+        }
+    }
 }
-function genre_result(){
+function result($table){
     $conn=db_connect();
-    $query = "SELECT * FROM tbGenre ORDER BY genre";
+    $query = "SELECT * FROM $table";
     $result = mysqli_query($conn, $query);
     return $result;
 }
-function genre_result2(){
+function result2($column, $table){
     $conn=db_connect();
-    //$count = 0;
-    $query = "SELECT genre FROM tbGenre";
+    $query = "SELECT $column FROM $table";
     $result2 = mysqli_query($conn, $query);
     return $result2;
 }
-function index_all(){
+function select_all($table_name){
     $conn=db_connect();
-    $query="select * from tbBook as Book
-join tbAuthorBook as AuthorBook on AuthorBook.idBook=Book.idBook
-join tbAuthor as Author on Author.idAuthor=AuthorBook.idAuthor
-join tbGenreBook as GenreBook on GenreBook.idBook=Book.idBook
-join tbGenre as Genre on Genre.idGenre=GenreBook.idGenre";
-    /*$query="select * from tbBook";*/
+    $query="select * from $table_name ";
     $result=$conn->query($query);
     return $result;
 }
 function delete(){
     if(isset($_POST['save'])){
         $link=db_connect();
-        /*$sql = mysqli_query($link, " SET FOREIGN_KEY_CHECKS=0;
-     DELETE FROM `tbBook` WHERE `tbBook`.`idBook`='".$_POST["idBook"]."';
-     SET FOREIGN_KEY_CHECKS=1;");*/
         $sql = mysqli_query($link, "DELETE from tbBook as Book
         join tbAuthorBook as AuthorBook on AuthorBook.idBook=Book.idBook
         join tbAuthor as Author on Author.idAuthor=AuthorBook.idAuthor 
@@ -147,18 +84,5 @@ function delete(){
             echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
         }
     }
-}
-function author_result(){
-    $conn=db_connect();
-
-    $query = "SELECT * FROM tbAuthor ORDER BY authorName";
-    $result = mysqli_query($conn, $query);
-    return $result;
-}
-function author_result2(){
-    $conn=db_connect();
-    $query = "SELECT authorName FROM tbAuthor";
-    $result2 = mysqli_query($conn, $query);
-    return $result2;
 }
 ?>

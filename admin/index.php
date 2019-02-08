@@ -7,7 +7,12 @@
 <body>
 <?php
 require_once("C:/OSPanel/domains/project/db/function.php");
-index_add();
+//index_add();
+add_3param('tbBook','idBook','bookName','description',$_POST["idBook"],$_POST["bookName"],$_POST["description"]);
+add_2param('tbAuthor','idAuthor','AuthorName',$_POST["idAuthor"],$_POST["authorName"]);
+add_2param('tbAuthorBook','idBook','idAuthor',$_POST["idBook"],$_POST["idAuthor"]);
+add_2param('tbGenre','idGenre','genre',$_POST["idGenre"],$_POST["genre"]);
+add_2param('tbGenreBook','idGenre','idBook',$_POST["idGenre"],$_POST["idBook"]);
 ?>
 
 <form method="post">

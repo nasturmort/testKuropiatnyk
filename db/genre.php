@@ -18,7 +18,7 @@
     </header>
 <?php
 require_once("function.php");
-$result=genre_result();
+$result=result('tbGenre');
 $conn=db_connect();
 
 if(!$result){
@@ -40,8 +40,7 @@ $title = "Жанры";
 
     while($row = mysqli_fetch_assoc($result)){
         $count = 0;
-
-        $result2 = genre_result2();
+        $result2 = result2('genre','tbGenre');
         if(!$result2){
             echo "Can't retrieve data " . mysqli_error($conn);
             exit;

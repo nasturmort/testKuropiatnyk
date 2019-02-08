@@ -8,7 +8,8 @@
 <div class="container">
     <?php
     require_once("function.php");
-    $getComponent = tableGetComponent($book_id); ?>
+    $book_id = $_GET['pubid'];
+    $getComponent = tableGetComponent($book_id,'AuthorBook','idAuthor'); ?>
     <?php foreach ($getComponent as $value): ?>
         <div class="row">
             <div class="col-md-9">
@@ -28,7 +29,7 @@
         </div>
         <hr>
         <p><button> <a href="/form/form.php">Заказать</a></button></p>
-   <?php endforeach; ?>
+    <?php endforeach; ?>
 </div>
 </body>
 </html>

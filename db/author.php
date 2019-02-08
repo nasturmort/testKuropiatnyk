@@ -18,9 +18,8 @@
     </header>
 <?php
 require_once("function.php");
-$result=author_result();
+$result=result('tbAuthor');
 $conn=db_connect();
-
 if(!$result){
     echo "Can't retrieve data " . mysqli_error($conn);
     exit;
@@ -29,7 +28,6 @@ if(mysqli_num_rows($result) == 0){
     echo "Empty author ! Something wrong! check again";
     exit;
 }
-
 $title = "Автора";
 ?>
 <div id="top">
@@ -39,7 +37,7 @@ $title = "Автора";
         <?php
         while($row = mysqli_fetch_assoc($result)){
             $count = 0;
-            $result2 = author_result2();
+            $result2 = result2('authorName ','tbAuthor');
             if(!$result2){
                 echo "Can't retrieve data " . mysqli_error($conn);
                 exit;

@@ -8,7 +8,8 @@
 <div class="container">
     <?php
     require_once("function.php");
-    $getComponent = tableGetComponentg($book_id);
+    $book_id = $_GET['genre_id'];
+    $getComponent = tableGetComponent($book_id,'GenreBook','idGenre');
      foreach ($getComponent as $value): ?>
         <div class="row">
             <div class="col-md-9">

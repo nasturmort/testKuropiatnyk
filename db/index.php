@@ -8,8 +8,7 @@
 
 <?php
 require_once("function.php");
-$result=index_all();
-
+$result=select_all('tbBook');
 if($result->num_rows>0){
     while ($row=$result->fetch_assoc()){   
         echo "<h3>".$row['bookName']."</h3><br>";
@@ -17,7 +16,7 @@ if($result->num_rows>0){
         echo "Атор(а): ".$row['authorName']."<br>";
         echo "Жанр(ы): ".$row['genre']."<br>"."<br>";
         echo "<p><button> <a href='/form/form.php'>Заказать</a></button></p>";
-        echo "<hr>";    
+        echo "<hr>";
     }
 }else{
     echo "No data:(";
